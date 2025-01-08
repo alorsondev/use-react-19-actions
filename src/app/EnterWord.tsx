@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 function EnterWord() {
   const [inputValue, setInputValue] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [isPending, setIsPending] = useState(false)
   const [error, setError] = useState('')
   const [result, setResult] = useState('')
 
@@ -26,7 +26,7 @@ function EnterWord() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setLoading(true)
+    setIsPending(true)
     setError('')
 
     try {
@@ -37,7 +37,7 @@ function EnterWord() {
       setError(err as string)
       setResult('')
     } finally {
-      setLoading(false)
+      setIsPending(false)
     }
   }
 
@@ -54,8 +54,8 @@ function EnterWord() {
           placeholder="Type something..."
         />
       </div>
-      <button type="submit" disabled={loading} className="rounded p-2 bg-cyan-600 text-white">
-        {loading ? 'Loading...' : 'Submit'}
+      <button type="submit" disabled={isPending} className="rounded p-2 bg-cyan-600 text-white">
+        {isPending ? 'Loading...' : 'Submit'}
       </button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {result && <p>Submitted Word: {result}</p>}
