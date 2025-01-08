@@ -1,24 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import { fakeApiCall } from './api'
 
 function EnterWord() {
   const [inputValue, setInputValue] = useState('')
   const [isPending, setIsPending] = useState(false)
   const [error, setError] = useState('')
   const [result, setResult] = useState('')
-
-  const fakeApiCall = (value: string) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (value.length < 3) {
-          reject('The input must be at least 3 characters long.')
-        } else {
-          resolve(value)
-        }
-      }, 1000)
-    })
-  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
