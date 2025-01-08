@@ -4,24 +4,17 @@ import { useState } from 'react'
 import { fakeApiCall } from './api'
 
 function EnterWord() {
-  const [inputValue, setInputValue] = useState('')
   const [isPending, setIsPending] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value)
-  }
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const submitAction = async (formData: FormData) => {
     setIsPending(true)
     setErrorMessage('')
 
     try {
-      const response = await fakeApiCall(inputValue)
+      const response = await fakeApiCall(formData.get('wordInput') as string)
       setSuccessMessage(response as string)
-      setInputValue('')
     } catch (err) {
       setErrorMessage(err as string)
       setSuccessMessage('')
@@ -31,7 +24,7 @@ function EnterWord() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-start">
+    <form action={submitAction} className="flex flex-col items-start">
       <div className="flex flex-col items-start gap-2 mb-2">
         <label htmlFor="wordInput">Saisissez un mot:</label>
         <input
@@ -39,8 +32,6 @@ function EnterWord() {
           id="wordInput"
           name="wordInput"
           type="text"
-          value={inputValue}
-          onChange={handleChange}
           placeholder="Tapez un mot..."
         />
       </div>
