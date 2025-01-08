@@ -48,6 +48,7 @@ function EnterWord() {
         <input
           className="border rounded p-2"
           id="wordInput"
+          name="wordInput"
           type="text"
           value={inputValue}
           onChange={handleChange}
