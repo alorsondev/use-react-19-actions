@@ -1,19 +1,9 @@
 'use client'
 
 import { useActionState } from 'react'
-
-import { fakeApiCall } from './api'
+import { submitAction } from './actions'
 
 function EnterWord() {
-  const submitAction = async (prevState, formData: FormData) => {
-    try {
-      const response = await fakeApiCall(formData.get('wordInput') as string)
-      return { successMessage: response as string }
-    } catch (err) {
-      return { errorMessage: err as string }
-    }
-  }
-
   const [formState, formAction, isPending] = useActionState(submitAction, null)
 
   return (
