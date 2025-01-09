@@ -2,9 +2,9 @@ export const fakeApiCall = (value: string) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (value.length < 3) {
-        reject('The input must be at least 3 characters long.')
+        reject('Le mot doit contenir au moins 3 caractères.')
       } else {
-        resolve(value)
+        resolve('Félicitations, votre mot a bien été envoyé au serveur.')
       }
     }, 1000)
   })

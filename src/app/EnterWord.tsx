@@ -6,8 +6,8 @@ import { fakeApiCall } from './api'
 function EnterWord() {
   const [inputValue, setInputValue] = useState('')
   const [isPending, setIsPending] = useState(false)
-  const [error, setError] = useState('')
-  const [result, setResult] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
@@ -16,15 +16,15 @@ function EnterWord() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsPending(true)
-    setError('')
+    setErrorMessage('')
 
     try {
       const response = await fakeApiCall(inputValue)
-      setResult(response as string)
+      setSuccessMessage(response as string)
       setInputValue('')
     } catch (err) {
-      setError(err as string)
-      setResult('')
+      setErrorMessage(err as string)
+      setSuccessMessage('')
     } finally {
       setIsPending(false)
     }
@@ -33,7 +33,7 @@ function EnterWord() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col items-start">
       <div className="flex flex-col items-start gap-2 mb-2">
-        <label htmlFor="wordInput">Enter a word:</label>
+        <label htmlFor="wordInput">Saisissez un mot:</label>
         <input
           className="border rounded p-2"
           id="wordInput"
@@ -41,14 +41,14 @@ function EnterWord() {
           type="text"
           value={inputValue}
           onChange={handleChange}
-          placeholder="Type something..."
+          placeholder="Tapez un mot..."
         />
       </div>
       <button type="submit" disabled={isPending} className="rounded p-2 bg-cyan-600 text-white">
-        {isPending ? 'Loading...' : 'Submit'}
+        {isPending ? 'Chargement...' : 'Envoyer'}
       </button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {result && <p>Submitted Word: {result}</p>}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {successMessage && <p>{successMessage}</p>}
     </form>
   )
 }
