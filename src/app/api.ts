@@ -4,7 +4,7 @@ export const fakeApiCall = (value: string) => {
       if (value.length < 3) {
         reject('Le mot doit contenir au moins 3 caractères.')
       } else {
-        resolve('Félicitations, votre mot a bien été envoyé au serveur.')
+        resolve('Félicitations, votre mot a bien été enregistré.')
       }
     }, 1000)
   })
